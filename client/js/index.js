@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    getRequest('POST', 'https://jscp-diplom.netoserver.ru/', 'event=update', function (response) { 
+    getRequest('POST', 'https://jscp-diplom.netoserver.ru/', 'event=update', function (response) {
         const films = response.films.result;
         const halls = response.halls.result;
         const seances = response.seances.result;
@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 if (codeHalls) {
-                    main.innerHTML += '<section class="movie"><div class="movie__info"><div class="movie__poster"><img class="movie__poster-image" alt='+ film.film_name +' src=' + film.film_poster + '></div><div class="movie__description"><h2 class="movie__title">' + film.film_name + '</h2><p class="movie__synopsis">' + film.film_description + '</p><p class="movie__data"><span class="movie__data-duration">' + film.film_duration + ' минуты </span><span class="movie__data-origin">' + film.film_origin + '</span></p></div></div>' + codeHalls + '</section>';
+                    main.innerHTML += '<section class="movie"><div class="movie__info"><div class="movie__poster"><img class="movie__poster-image" alt=' + film.film_name + ' src=' + film.film_poster + '></div><div class="movie__description"><h2 class="movie__title">' + film.film_name + '</h2><p class="movie__synopsis">' + film.film_description + '</p><p class="movie__data"><span class="movie__data-duration">' + film.film_duration + ' минуты </span><span class="movie__data-origin">' + film.film_origin + '</span></p></div></div>' + codeHalls + '</section>';
                 }
             })
 
@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        function showCurrentSeance () {
+        function showCurrentSeance() {
             const movieSeancesTime = document.querySelectorAll('.movie-seances__time');
             movieSeancesTime.forEach((time) => {
                 const date = new Date();
@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 const seanceTime = time.textContent.split(':');
                 const dayToday = document.querySelector('.page-nav__day_chosen');
                 const dayTodayDate = dayToday.querySelector('.page-nav__day-number');
-                if ((+seanceTime[0] < currentTimeHours || (+seanceTime[0] == currentTimeHours && +seanceTime[1] < currentTimeMin)) && date.getDate() == dayTodayDate.textContent ) {
+                if ((+seanceTime[0] < currentTimeHours || (+seanceTime[0] == currentTimeHours && +seanceTime[1] < currentTimeMin)) && date.getDate() == dayTodayDate.textContent) {
                     time.classList.add('acceptin-button-disabled');
                 } else {
                     time.classList.remove('acceptin-button-disabled');
@@ -86,12 +86,11 @@ window.addEventListener('DOMContentLoaded', () => {
         const movieSeancesTime = document.querySelectorAll('.movie-seances__time');
         movieSeancesTime.forEach((time) => {
             time.addEventListener('click', () => {
-                const selectedSeance = time.dataset;
-                const selectedSeanceJson = JSON.stringify(selectedSeance);
-                localStorage.setItem('seance', selectedSeanceJson );
+                let selectedSeance = time.dataset;
+                console.log(selectedSeance);
+                localStorage.setItem('seance', JSON.stringify(selectedSeance));
             })
         })
-
-
     })
 })
+
