@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         codeHalls += '<div class="movie-seances__hall"><h3 class="movie-seances__hall-title">' + hall.hall_name + '</h3><ul class="movie-seances__list">';
         
                         filmSeances.forEach((seance) => {
-                            codeHalls += `<li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html" data-film-name="${film.film_name}" data-film-id="${film.film_id}" data-hall-id="${hall.hall_id}" data-hall-name="${hall.hall_name}" data-price-standart="${hall.hall_price_standart}" data-price-vip="${hall.hall_price_vip}" data-seance-id="${seance.seance_id}" data-seance-start="${seance.seance_start}" data-seance-time="${seance.seance_time}">${seance.seance_time}</a></li>`;
+                            codeHalls += `<li class="movie-seances__time-block"><a class="movie-seances__time" href="client/hall.html" data-film-name="${film.film_name}" data-film-id="${film.film_id}" data-hall-id="${hall.hall_id}" data-hall-name="${hall.hall_name}" data-price-standart="${hall.hall_price_standart}" data-price-vip="${hall.hall_price_vip}" data-seance-id="${seance.seance_id}" data-seance-start="${seance.seance_start}" data-seance-time="${seance.seance_time}">${seance.seance_time}</a></li>`;
                         })
                         codeHalls += '</ul></div>';
                     }
@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 const seanceTime = time.textContent.split(':');
                 const dayToday = document.querySelector('.page-nav__day_chosen');
                 const dayTodayDate = dayToday.querySelector('.page-nav__day-number');
-                if ((+seanceTime[0] <= currentTimeHours && +seanceTime[1] < currentTimeMin) && date.getDate() == dayTodayDate.textContent ) {
+                if ((+seanceTime[0] < currentTimeHours || (+seanceTime[0] == currentTimeHours && +seanceTime[1] < currentTimeMin)) && date.getDate() == dayTodayDate.textContent ) {
                     time.classList.add('acceptin-button-disabled');
                 } else {
                     time.classList.remove('acceptin-button-disabled');
@@ -83,13 +83,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 showCurrentSeance();
             })
         })
-
         const movieSeancesTime = document.querySelectorAll('.movie-seances__time');
         movieSeancesTime.forEach((time) => {
-            time.addEventListener('click', (e) => {
-                const seance = time.dataset;
-                localStorage.setItem('seance', JSON.stringify(seance));
+            time.addEventListener('click', () => {
+                const selectedSeance = time.dataset;
+                const selectedSeanceJson = JSON.stringify(selectedSeance);
+                localStorage.setItem('seance', selectedSeanceJson );
             })
         })
+
+
     })
 })
