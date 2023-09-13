@@ -16,14 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const buying = document.querySelector('.buying');
         buying.classList.toggle('buying-transform');
     })
-    let start = seance.seanceStart;
-    let currentDate = new Date();
-    currentDate.setHours(0, 0, 0);
-    let timestamp = Math.floor(currentDate.getTime() / 1000) + +seance.seanceStart * 60;
 
-
-    getRequest('POST', 'https://jscp-diplom.netoserver.ru/', `event=get_hallConfig&timestamp=${timestamp}&hallId=${seance.hallId}&seanceId=${seance.seanceId}`, function (response) {
-        console.log(response);
+    getRequest('POST', 'https://jscp-diplom.netoserver.ru/', `event=get_hallConfig&timestamp=${seance.timeStamp}&hallId=${seance.hallId}&seanceId=${seance.seanceId}`, function (response) {
         if (response) {
             const confStepWrapper = document.querySelector('.conf-step__wrapper');
             confStepWrapper.textContent = '';
@@ -63,13 +57,15 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                     selectedChairs.push({ row: row, place: place, type: type})
                 })
-                window.location.href = 'payment.html';
                 const confStepWrapperNew = document.querySelector('.conf-step__wrapper').innerHTML;
                 seance.hallCode = confStepWrapperNew;
-                seance.timestamp = timestamp;
                 seance.selectedChairs = selectedChairs;
+                console.log(seance);
                 localStorage.setItem('seance', JSON.stringify(seance));
+                window.location.href = 'payment.html';
             })
+        } else {
+            alert('Нет билетов');
         }
     });
 })

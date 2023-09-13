@@ -3,12 +3,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const pageNavDaysWeek = document.querySelectorAll('.page-nav__day-week');
     const pageNavDaysNumber = document.querySelectorAll('.page-nav__day-number');
     const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-    let selectedDay;
+
     pageNavDaysNumber.forEach((pageNavDayNumber, index) => {
         const currentDate = new Date();
         currentDate.setDate(currentDate.getDate() + index);
-        selectedDay = currentDate;
-        console.log(Date);
         pageNavDayNumber.textContent = currentDate.getDate();
         pageNavDaysWeek[index].textContent = weekdays[currentDate.getDay()];
         if (index === 0) {
@@ -70,7 +68,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 } else {
                     time.classList.remove('acceptin-button-disabled');
                 }
+                let seanceStart = +time.dataset.seanceStart;
 
+                let selectedDayIndex = Array.from(pageNavDay).indexOf(dayToday);
+                date.setDate(date.getDate() + selectedDayIndex);
+                date.setHours(0, 0, 0, 0);
+                let seanceTimeStamp = Math.floor(date.getTime() / 1000) + seanceStart * 60; 
+                time.dataset.timeStamp = seanceTimeStamp;
             })
         }
         showCurrentSeance();
@@ -88,9 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const movieSeancesTime = document.querySelectorAll('.movie-seances__time');
         movieSeancesTime.forEach((time) => {
             time.addEventListener('click', () => {
-                time.setAttribute('selectedDay', `${selectedDay}`);
                 let selectedSeance = time.dataset;
-                console.log(selectedSeance);
                 localStorage.setItem('seance', JSON.stringify(selectedSeance));
             })
         })
