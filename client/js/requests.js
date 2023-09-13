@@ -12,7 +12,6 @@ function getRequest(method, url, body, collback) {
             collback(null);
         }
     }
-
     xhr.send(body);
 }
 

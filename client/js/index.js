@@ -21,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     getRequest('POST', 'https://jscp-diplom.netoserver.ru/', 'event=update', function (response) {
+        console.log(response);
         const films = response.films.result;
         const halls = response.halls.result;
         const seances = response.seances.result;
@@ -36,16 +37,16 @@ window.addEventListener('DOMContentLoaded', () => {
                         codeHalls += '<div class="movie-seances__hall"><h3 class="movie-seances__hall-title">' + hall.hall_name + '</h3><ul class="movie-seances__list">';
         
                         filmSeances.forEach((seance) => {
-                            codeHalls += `<li class="movie-seances__time-block"><a class="movie-seances__time" href="client/hall.html" data-film-name="${film.film_name}" data-film-id="${film.film_id}" data-hall-id="${hall.hall_id}" data-hall-name="${hall.hall_name}" data-price-standart="${hall.hall_price_standart}" data-price-vip="${hall.hall_price_vip}" data-seance-id="${seance.seance_id}" data-seance-start="${seance.seance_start}" data-seance-time="${seance.seance_time}">${seance.seance_time}</a></li>`;
+                            codeHalls += `<li class="movie-seances__time-block"><a class="movie-seances__time" href="client/hall.html" data-film-name="${film.film_name}" data-film-id="${film.film_id}" data-hall-id="${hall.hall_id}" data-hall-name="${hall.hall_name}" data-price-standart="${hall.hall_price_standart}" data-seance-initial-Hall-Code='${hall.hall_config}' data-price-vip="${hall.hall_price_vip}" data-seance-id="${seance.seance_id}" data-seance-start="${seance.seance_start}" data-seance-time="${seance.seance_time}"> ${seance.seance_time} </a></li>`;
                         })
                         codeHalls += '</ul></div>';
                     }
                 }
+
                 if (codeHalls) {
                     main.innerHTML += '<section class="movie"><div class="movie__info"><div class="movie__poster"><img class="movie__poster-image" alt=' + film.film_name + ' src=' + film.film_poster + '></div><div class="movie__description"><h2 class="movie__title">' + film.film_name + '</h2><p class="movie__synopsis">' + film.film_description + '</p><p class="movie__data"><span class="movie__data-duration">' + film.film_duration + ' минуты </span><span class="movie__data-origin">' + film.film_origin + '</span></p></div></div>' + codeHalls + '</section>';
                 }
             })
-
         })
         let movie = document.querySelectorAll('.movie');
         for (let i = 0; i < movie.length - 1; i += 1) {
