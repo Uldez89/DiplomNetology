@@ -63,9 +63,12 @@ window.addEventListener('DOMContentLoaded', () => {
                     type = 'vip';
                 }
                 selectedChairs.push({ row: row, place: place, type: type })
+                chair.classList.remove('conf-step__chair_selected');
+                chair.classList.add('conf-step__chair_taken');
             })
             const confStepWrapperNew = document.querySelector('.conf-step__wrapper').innerHTML;
             seanceHall.hallCode = confStepWrapperNew;
+            console.log(confStepWrapperNew);
             seanceHall.selectedChairs = selectedChairs;
             console.log(seanceHall);
             localStorage.setItem('seanceHall', JSON.stringify(seanceHall));

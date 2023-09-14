@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const seanceTicket = JSON.parse(localStorage.getItem('seancePayment'));
-    console.log(seanceTicket);
+    let seanceTicketHallCode = seanceTicket.hallCode;
+    console.log(seanceTicketHallCode);
     const ticketTitle = document.querySelector('.ticket__title');
     ticketTitle.textContent = seanceTicket.filmName;
     const ticketChairs = document.querySelector('.ticket__chairs');

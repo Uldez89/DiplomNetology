@@ -1,1 +1,1 @@
-https://github.com/Uldez89/DiplomNetology/blob/main/client/index.html
+https://uldez89.github.io/DiplomNetology/

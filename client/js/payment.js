@@ -6,7 +6,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const placePositionArr = seancePayment.selectedChairs;
     const placeCode = seancePayment.hallCode;
     const acceptinButton = document.querySelector('.acceptin-button');
-    console.log(placeCode);
     let rowPlace = [];
     let price = 0;
     placePositionArr.forEach(element => {
@@ -31,8 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     acceptinButton.addEventListener('click', () => {
         localStorage.setItem('seancePayment', JSON.stringify(seancePayment));
-        getRequest('POST', 'https://jscp-diplom.netoserver.ru/', `event=sale_add&timestamp=${seancePayment.timeStamp}&hallId=${seancePayment.hallId}&seanceId=${seancePayment.seanceId}&hallConfiguration=${newHallConfig}`, function () {
-            
-        })
+        getRequest('POST', 'https://jscp-diplom.netoserver.ru/', `event=sale_add&timestamp=${seancePayment.timeStamp}&hallId=${seancePayment.hallId}&seanceId=${seancePayment.seanceId}&hallConfiguration=${newHallConfig}`)
     })
 })
