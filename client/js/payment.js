@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
     ticketStart.textContent = seancePayment.seanceTime;
     const ticketCost = document.querySelector('.ticket__cost');
     ticketCost.textContent = price;
-    const newHallConfig = seancePayment.hallCode.replace(/selected/g, `taken`);
+    const newHallConfig = placeCode;//.replace(/selected/g, `taken`);
     seancePayment.ticketChairs = ticketChairs.textContent;
     console.log(JSON.stringify(seancePayment));
 
